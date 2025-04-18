@@ -65,7 +65,7 @@ const currentYear = new Date().getFullYear();
         </p>
       </div>
       
-      <div class="col-span-1">
+      <!--div class="col-span-1">
         <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
         <nav>
           <ul class="space-y-2">
@@ -75,14 +75,14 @@ const currentYear = new Date().getFullYear();
           </ul>
         </nav>
       </div>
-    </div>
+    </div-->
 
     <div class="mt-8 flex flex-col md:flex-row justify-between items-center">
       <div class="text-body-dark text-sm">
-        © {currentYear} {siteConfig.companyName}. All rights reserved.
+        © {currentYear} {siteConfig.companyName}. Développé par <a href={siteConfig.devURL} target="_blank">{siteConfig.devName}</a> avec <a href="https://astro.build/" target="_blank">Astro</a> et le thème <a href="https://github.com/rspisarski/titan-core" target="_blank">Titan Core</a> 
       </div>
       
-      <nav class="mt-4 md:mt-0">
+      <!--nav class="mt-4 md:mt-0">
         <ul class="flex flex-wrap gap-6">
           {legalMenu.map(item => (
             <li>
@@ -95,7 +95,7 @@ const currentYear = new Date().getFullYear();
             </li>
           ))}
         </ul>
-      </nav>
+      </nav-->
     </div>
   </div>
 </footer>

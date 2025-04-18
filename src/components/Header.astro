@@ -1,6 +1,7 @@
 ---
 import { headerMenu } from '@data/menu';
 import Logo from '@components/Logo.astro';
+import { Icon } from "astro-icon/components";
 import { Menu, X, ChevronDown } from 'lucide-astro';
 import Button from '@components/ui/Button.astro';
 
@@ -19,15 +20,56 @@ const isCurrentPage = (link: string) => {
     }
     return currentPath.startsWith(link);
 };
+
+export interface Link {
+  description: string;
+  icon: string;
+  url: string;
+}
+
+const links: Array<Link> = [
+  {
+    url: "https://github.com/mhyfritz/astro-landing-page",
+    description: "View source on GitHub",
+    icon: "fa6-brands:github-alt",
+  },
+  {
+    url: "https://astro.build/chat",
+    description: "Astro on Discord",
+    icon: "fa6-brands:discord",
+  },
+  {
+    url: "https://twitter.com/astrodotbuild",
+    description: "Astro on Twitter",
+    icon: "fa6-brands:twitter",
+  },
+];
 ---
 
-<header class="fixed top-0 z-50 w-full left-0">
-    <div class="site-container mx-auto px-4 mt-4">
-        <div class="flex justify-between items-center bg-white py-4 rounded-lg px-4 border-black border">
-            <Logo />
+<header class="header fixed top-0 z-50 w-full left-0 bg-header-bg transition ease-in-out duration-500">
+    <!--div class="site-container mx-auto px-4 mt-4"-->
+    <div class="mx-auto">
+        <!--div class="flex justify-between items-center bg-white py-4 rounded-lg px-4 border-black border"-->
+        <div class="flex justify-between items-center py-4 px-4 lg:px-8">
+            {/* Mobile Menu Button */}
+            <div class="flex items-center gap-2">
+                <button
+                    class="mobile-menu-button relative z-30 p-2 border-none cursor-pointer bg-transparent lg:hidden"
+                    aria-label="Toggle Menu"
+                    aria-expanded="false"
+                >
+                    <span class="menu-icon block">
+                        <Menu size={24} class="text-body-base" />
+                    </span>
+                    <span class="close-icon hidden">
+                        <X size={24} class="text-white" />
+                    </span>
+                </button>
+                <Logo />
+            </div>
             <nav class="relative flex items-center gap-2 lg:gap-8" aria-label="Site Navigation">
                 {/* Desktop Menu */}
-                <ul class="hidden lg:flex lg:gap-8 items-center">
+                <ul class="hidden lg:flex lg:gap-6 items-center">
                     {
                         headerMenu.map((item, index) => (
                             <li class="relative group">
@@ -35,7 +77,7 @@ const isCurrentPage = (link: string) => {
                                     <a
                                         href={item.link}
                                         class:list={[
-                                            'text-small font-medium rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-nav-text-active',
+                                            'uppercase text-medium font-medium px-2 py-1 focus:outline-none focus:ring-2 focus:ring-nav-text-active',
                                             isCurrentPage(item.link)
                                                 ? 'text-nav-text-current font-semibold'
                                                 : 'text-nav-text hover:text-nav-text-hover',
@@ -63,7 +105,7 @@ const isCurrentPage = (link: string) => {
                                 {item.children && (
                                     <ul
                                         class:list={[
-                                            'submenu absolute mt-2 bg-nav-submenu-bg border-black border rounded-md min-w-[200px] transition-all duration-200 opacity-0 invisible overflow-hidden z-50',
+                                            'submenu absolute mt-2 bg-nav-submenu-bg border-black border min-w-[200px] transition-all duration-200 opacity-0 invisible overflow-hidden z-50',
                                             index === headerMenu.length - 1 ? 'right-0' : 'left-0',
                                         ]}
                                     >
@@ -90,21 +132,9 @@ const isCurrentPage = (link: string) => {
                     }
                 </ul>
 
-                <Button href={ctaButton.link} variant="primary">{ctaButton.name}</Button>
+                <!--Button href={ctaButton.link} variant="primary">{ctaButton.name}</Button-->
 
-                {/* Mobile Menu Button */}
-                <button
-                    class="mobile-menu-button relative z-30 p-2 border-none cursor-pointer bg-transparent lg:hidden"
-                    aria-label="Toggle Menu"
-                    aria-expanded="false"
-                >
-                    <span class="menu-icon block">
-                        <Menu size={24} class="text-body-base" />
-                    </span>
-                    <span class="close-icon hidden">
-                        <X size={24} class="text-white" />
-                    </span>
-                </button>
+                
 
                 {/* Mobile Menu Panel */}
                 <div
@@ -115,7 +145,7 @@ const isCurrentPage = (link: string) => {
                             headerMenu.map((item) => (
                                 <li>
                                     <div class="text-white">
-                                        <div class="flex items-center justify-between">
+                                        <div class="flex items-center">
                                             <a
                                                 href={item.link}
                                                 class:list={[
@@ -179,13 +209,41 @@ const isCurrentPage = (link: string) => {
                     <div class="mt-8 pb-8">
                         <Button href={ctaButton.link} variant="ghostLight">{ctaButton.name} </Button>
                     </div>
-                </div>
+                </div>     
             </nav>
+            {/* Social links */}
+            <ul class="relative flex items-center gap-4 lg:gap-4">
+                {
+                  links.map((link) => (
+                    <li>
+                      <a
+                        class="flex size-4 md:size-5 items-center justify-center"
+                        href={link.url}
+                      >
+                        <span class="sr-only">{link.description}</span>
+                        <Icon class="size-full" name={link.icon} />
+                      </a>
+                    </li>
+                  ))
+                }
+              </ul>
         </div>
     </div>
 </header>
 
 <script>
+    // Header 
+    document.addEventListener('scroll', () => {
+        const header = document.querySelector('.header') as HTMLElement;
+        if (header) {
+            // const d = document.documentElement.clientHeight - document.documentElement.scrollTop - header.offsetHeight;
+            const d = - document.documentElement.scrollTop + header.offsetHeight;
+            header.classList.toggle('bg-header-bg-scrolled', d < 0);
+            const submenu = document.querySelector('.submenu');
+            submenu?.classList.toggle('bg-nav-submenu-bg-scrolled', d < 0);
+        }   
+    });
+
     // Desktop Menu
     const desktopMenuItems = document.querySelectorAll('.group');
 
@@ -342,3 +400,10 @@ const isCurrentPage = (link: string) => {
         }
     });
 </script>
+
+<style>
+    @reference "@styles/global.css";
+    .visible-header {
+        @apply bg-nav-submenu-bg-scrolled border-black border;
+    }
+</style>

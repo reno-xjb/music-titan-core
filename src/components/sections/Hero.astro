@@ -12,6 +12,7 @@ interface HeroContent {
         target?: string;
     }[];
     backgroundImage?: string | any; // Using any for now to handle both string paths and imported images
+    backgroundImageAlt?: string;
     overlayOpacity?: number; // Value between 0 and 1
 }
 
@@ -21,14 +22,15 @@ interface Props {
 
 const { content } = Astro.props;
 const opacity = content.overlayOpacity ?? 1; // Default opacity if not specified
+const backgroundImageAlt = content.backgroundImageAlt ?? "";
 ---
 
-<section class="header-offset relative">
+<section class="header-offset relative h-full">
     {content.backgroundImage && (
         <div class="absolute inset-0 left-0 top-0 w-full h-full overflow-hidden">
             <Image
                 src={content.backgroundImage}
-                alt=""
+                alt={backgroundImageAlt}
                 width={1920}
                 height={1080}
                 class="w-full h-full object-cover"

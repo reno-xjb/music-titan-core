@@ -1,5 +1,7 @@
 export const siteConfig = {
-  companyName: 'Titan Core',
+  companyName: 'Music Titan Theme',
+  devName: 'reno-xjb',
+  devURL: 'https://github.com/reno-xjb',
   siteUrl: 'https://titan-core.com',
   Socials: {
       xSocial: 'https://x.com/astrodotbuild',

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-
+    --color-transparent: transparent;
     --color-primary: #3557c1;
     --color-primary-light: #4b6ed4;
     --color-primary-dark: #1a3c8c;
@@ -38,12 +38,15 @@
     --color-nav-text-hover: var(--color-primary);
     --color-nav-text-active: var(--color-primary);
     --color-nav-text-current: var(--color-primary);
-    --color-nav-submenu-bg: var(--color-background-light);
+    --color-nav-submenu-bg: var(--color-transparent);
+    --color-nav-submenu-bg-scrolled: var(--color-background-light);
     --color-nav-mobile-text: #ffffff;
     --color-nav-mobile-text-hover: #e6b800;
     --color-nav-mobile-text-active: #ffffff;
     --color-nav-mobile-text-current: #ffffff;
     
+    --color-header-bg: var(--color-transparent);
+    --color-header-bg-scrolled: var(--color-background-light);
     --color-header-logo: var(--color-primary);
     --color-footer-logo: var(--color-primary);
     
@@ -81,15 +84,16 @@
     
     --font-bruno-ace: 'Bruno Ace SC', sans-serif;
     --font-noto-sans-kr: "Noto Sans KR", sans-serif;
-    --font-base: 'Noto Sans KR', sans-serif;
-    --font-logo: 'Bruno Ace SC', sans-serif;
-    --font-headline: 'Noto Sans KR', sans-serif;
+    --font-base: 'Jost', sans-serif;
+    --font-logo: 'Bebas Neue', sans-serif;
+    --font-headline: 'Bebas Neue', sans-serif;
 }
 
 @layer base {
     
     
     [data-theme='zeus'] {
+        --color-transparent: transparent;
         --color-primary: #3557c1;
         --color-primary-light: #4b6ed4;
         --color-primary-dark: #1a3c8c;
@@ -119,7 +123,8 @@
         --color-nav-text-hover: var(--color-primary);
         --color-nav-text-active: var(--color-primary);
         --color-nav-text-current: var(--color-primary);
-        --color-nav-submenu-bg: var(--color-background-light);
+        --color-nav-submenu-bg: var(--color-transparent);
+        --color-nav-submenu-bg-visible: var(--color-background-light);
         --color-nav-mobile-text: #ffffff;
         --color-nav-mobile-text-hover: #e6b800;
         --color-nav-mobile-text-active: #ffffff;
