@@ -22,12 +22,12 @@ const getLogoClass = () => {
 };
 ---
 
-<a href="/" class:list={['logo uppercase font-logo transition-colors duration-200 font-light', getLogoClass()]}>
+<a href="/" class:list={['flex items-center gap-2 logo text-large uppercase font-logo transition-colors duration-200 font-light', getLogoClass()]}>
     {
         // If image is the only element in this link, its alt attribute should be a textual representation.
         // Please, use something like your company name or “Home”, not “logo.”
         // If there is link text, leave alt empty.
     }
     <Image src={logo} alt="" class="hidden" />
-    <span class="font-bold">Music</span> Theme
+    <span class="font-bold">Music Band</span> Theme
 </a>

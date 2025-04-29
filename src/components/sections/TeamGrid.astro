@@ -1,17 +1,23 @@
 ---
 import { getCollection } from 'astro:content';
-import { getPaddingClass } from '@utils/styleUtils';
-import type { PaddingSize } from '@utils/styleUtils';
+import { getPaddingClass, getBackgroundColor } from '@utils/styleUtils';
+import type { PaddingSize, ThemeColor } from '@utils/styleUtils';
 import { Image } from 'astro:assets';
-import LinkWrapper from '@components/ui/LinkWrapper.astro';
+import Wrapper from '@components/ui/Wrapper.astro';
 
 interface Props {
+    background?: ThemeColor;
     padding?: PaddingSize;
     paddingTop?: PaddingSize;
     paddingBottom?: PaddingSize;
 }
 
-const { padding, paddingTop, paddingBottom } = Astro.props;
+const { 
+    background = 'base',
+    padding, 
+    paddingTop, 
+    paddingBottom,
+} = Astro.props;
 const paddingClass = getPaddingClass({ padding, paddingTop, paddingBottom });
 
 const teamMembers = await getCollection('team', ({ data }) => {
@@ -20,9 +26,11 @@ const teamMembers = await getCollection('team', ({ data }) => {
 
 // Sort team members by order
 const sortedTeamMembers = teamMembers.sort((a, b) => a.data.order - b.data.order);
+
+const bgColor = getBackgroundColor(background);
 ---
 
-<section class:list={['relative', paddingClass]}>
+<section class:list={['relative', paddingClass, bgColor]}>
     <div class="site-container mx-auto px-4">
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 xl:gap-x-8 xl:gap-y-14">
             {
@@ -33,7 +41,7 @@ const sortedTeamMembers = teamMembers.sort((a, b) => a.data.order - b.data.order
                         data-aos-delay={index * 100}
                         data-aos-duration="800"
                     >
-                        <LinkWrapper wrap={member.data.withDetails} href={`/team/${member.id}`} class="flex flex-col group rounded-md">
+                        <Wrapper as="a" wrap={member.data.withDetails} href={`/team/${member.id}`} class="flex flex-col group rounded-md">
                             <div class="relative mb-4 overflow-hidden rounded-md">
                                 <span class="absolute inset-0 -mt-12 h-400 w-1/2 translate-x-[250%] rotate-12 bg-white opacity-20  group-hover:transition-all  group-hover:duration-300 ease-out z-10" />
                                 {member.data.headshot ? (
@@ -58,7 +66,7 @@ const sortedTeamMembers = teamMembers.sort((a, b) => a.data.order - b.data.order
                                 {member.data.name}
                             </h3>
                             <p class="text-xsmall text-body-base">{member.data.jobTitle}</p>
-                        </LinkWrapper>
+                        </Wrapper>
                     </div>
                 ))
             }
