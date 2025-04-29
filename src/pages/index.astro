@@ -12,6 +12,7 @@ import CtaBanner from '@components/sections/CtaBanner.astro';
 import Faqs from '@components/sections/Faqs.astro';
 import { faqLists } from '@data/faqs';
 import RecentPosts from '@components/sections/RecentPosts.astro';
+import TeamGrid from '@components/sections/TeamGrid.astro';
 import heroImage from '../assets/images/home/default-hero-2.jpg';
 import styleGuideImage from '../assets/images/home/developer.jpg';
 
@@ -141,4 +142,5 @@ const recentPostsSection = {
     <Logos content={logosSection} background="base" padding='small'/>
     <Stats content={sideBySideStats} background='dark' padding="base"/>
     <Faqs content={faqsSection} background="base" padding="base" />
+    <TeamGrid padding="base" />
 </Layout>

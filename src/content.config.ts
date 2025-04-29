@@ -2,6 +2,7 @@ import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { categories } from '@data/categories';
 
+
 // Extract category names for the enum
 const categoryNames = categories.map((category) => category.name);
 
@@ -33,14 +34,14 @@ const team = defineCollection({
             headshot: image().optional(),
             jobTitle: z.string(),
             email: z.string().optional(),
-            linkedin: z.string().url().optional(),
-            linkedinUsername: z.string().optional(),
-            xSocial: z.string().url().optional(),
-            xSocialUsername: z.string().optional(),
-            github: z.string().url().optional(),
-            githubUsername: z.string().optional(),
             order: z.number().default(999),
             publish: z.boolean().default(true),
+            socials: z.array(z.object({
+                url: z.string().url(),
+                icon: z.string(),
+                aria: z.string().optional(),
+            })).optional(),
+            withDetails: z.boolean().default(false),
         }),
 });
 

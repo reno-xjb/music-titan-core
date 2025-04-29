@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import { getPaddingClass } from '@utils/styleUtils';
 import type { PaddingSize } from '@utils/styleUtils';
 import { Image } from 'astro:assets';
+import LinkWrapper from '@components/ui/LinkWrapper.astro';
 
 interface Props {
     padding?: PaddingSize;
@@ -32,9 +33,9 @@ const sortedTeamMembers = teamMembers.sort((a, b) => a.data.order - b.data.order
                         data-aos-delay={index * 100}
                         data-aos-duration="800"
                     >
-                        <a href={`/team/${member.id}`} class="flex flex-col group rounded-md">
+                        <LinkWrapper wrap={member.data.withDetails} href={`/team/${member.id}`} class="flex flex-col group rounded-md">
                             <div class="relative mb-4 overflow-hidden rounded-md">
-                                <span class="absolute inset-0 -mt-12 h-400 w-1/2 translate-x-[250%] rotate-12 bg-white opacity-20  group-hover:transition-all  group-hover:duration-300 ease-out group-hover:translate-x-[-250%] z-10" />
+                                <span class="absolute inset-0 -mt-12 h-400 w-1/2 translate-x-[250%] rotate-12 bg-white opacity-20  group-hover:transition-all  group-hover:duration-300 ease-out z-10" />
                                 {member.data.headshot ? (
                                     <Image
                                         src={member.data.headshot}
@@ -43,7 +44,7 @@ const sortedTeamMembers = teamMembers.sort((a, b) => a.data.order - b.data.order
                                         height={1280}
                                         quality={80}
                                         format="webp"
-                                        class="w-full h-auto aspect-[3/4] object-cover rounded-md group-hover:scale-[1.02] hover:brightness-110 transition-all duration-500 ease-in-out"
+                                        class="w-full h-auto aspect-[3/4] object-cover rounded-md group-hover:scale-[1.02] transition-all duration-500 ease-in-out"
                                         loading="eager"
                                         decoding="async"
                                     />
@@ -57,7 +58,7 @@ const sortedTeamMembers = teamMembers.sort((a, b) => a.data.order - b.data.order
                                 {member.data.name}
                             </h3>
                             <p class="text-xsmall text-body-base">{member.data.jobTitle}</p>
-                        </a>
+                        </LinkWrapper>
                     </div>
                 ))
             }
